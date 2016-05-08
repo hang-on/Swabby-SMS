@@ -129,6 +129,7 @@
   Pattern6: ; Go straight left...
     .db SET_DELAY 4
     .db 0,-1,250
+    .db 0,-1,50
     .db SELF_DESTRUCT
 
   SwabbyInitString:
