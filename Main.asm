@@ -1,6 +1,11 @@
 .include "Base.inc"
-.include "Spritelib.inc"
-.include "Objectlib.inc"
+
+.bank 0 slot 0
+  .include "Spritelib.inc"
+  .include "Objectlib.inc"
+
+.bank 1 slot 1
+  .include "Data/Object-Data.inc"
 
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 .ramsection "Main variables" slot 3
@@ -31,9 +36,6 @@
   .equ E1 (ENEMY_1_TILES_START-$2000)/32
   .equ E2 (ENEMY_2_TILES_START-$2000)/32
 
-  SwabbyTiles:
-    .include "Data/Swabby-Tiles.inc"
-  SwabbyTilesEnd:
   GargoyleTiles:
     .include "Data/Gargoyle-Tiles.inc"
   GargoyleTilesEnd:
