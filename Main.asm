@@ -5,7 +5,7 @@
   .include "Objectlib.inc"
 
 .bank 1 slot 1
-  .include "Data/Object-Data.inc"
+  .include "Objects/Object-Data.inc"
 
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 .ramsection "Main variables" slot 3
@@ -23,7 +23,7 @@
       .db $35
       .ds 15 0
     SpritePalette:
-      .include "Data/Sprite-Palette.inc"
+      .include "Objects/Sprite-Palette.inc"
     SpritePaletteEnd:
 
   ; Tilebank 2 map:
@@ -37,10 +37,10 @@
   .equ E2 (ENEMY_2_TILES_START-$2000)/32
 
   GargoyleTiles:
-    .include "Data/Gargoyle-Tiles.inc"
+    .include "Objects/Gargoyle-Tiles.inc"
   GargoyleTilesEnd:
   ZombieTiles:
-    .include "Data/Zombie-Tiles.inc"
+    .include "Objects/Zombie-Tiles.inc"
   ZombieTilesEnd:
 
   BatchLoadTable:
@@ -50,38 +50,6 @@
     .dw ZombieTiles ENEMY_2_TILES_START ZombieTilesEnd-ZombieTiles
   BatchLoadTableEnd:
 
-  .macro Make3x2MetaSprites
-    .rept nargs/2
-      \2
-        .db 6
-        .db -4, -4, -4, 4, 4, 4
-        .db -8, \1, 0, \1+1, 8, \1+2, -8, \1+3, 0, \1+4, 8, \1+5
-        .shift
-        .shift
-    .endr
-  .endm
-
-  .macro Make2x2MetaSprites
-    .rept nargs/2
-      \2
-        .db 4
-        .db -4, -4, 4, 4
-        .db -4, \1, 4, \1+1, -4, \1+2, 4, \1+3
-        .shift
-        .shift
-    .endr
-  .endm
-
-  .macro Make2x3MetaSprites
-    .rept nargs/2
-      \2
-        .db 6
-        .db -8, -8, 0, 0, 8, 8
-        .db -4, \1, 4, \1+1, -4, \1+2, 4, \1+3, -4, \1+4, 4, \1+5
-        .shift
-        .shift
-    .endr
-  .endm
 
   Make3x2MetaSprites P1, Swabby1:, P1+6, Swabby2:, P1+12, Swabby3:
   Make2x2MetaSprites E1, Gargoyle1:, E1+4, Gargoyle2:
