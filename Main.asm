@@ -88,7 +88,7 @@
   ; Animation table: An array of metasprites with corresponding timer values.
   SwabbyFlying:
     .dw $2000 Swabby1 $2000 Swabby3 $2000 Swabby1 $2000 Swabby3
-    .dw $2000 Swabby2 $20ff Swabby3 ; $ff (or non-zero value means loop).
+    .dw $2000 Swabby2 $20ff Swabby3 ; MSB $ff (or non-zero value) means loop.
 
   ; Movement patterns.
   Pattern1: ; The chineese bird-men.
