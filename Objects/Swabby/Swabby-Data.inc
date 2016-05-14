@@ -39,19 +39,21 @@ SwabbyTiles:
   .db $A0 $A0 $60 $20 $60 $60 $E0 $60 $80 $80 $80 $80 $80 $80 $80 $80 $40 $40 $C0 $40 $C0 $C0 $C0 $C0 $00 $00 $00 $00 $00 $00 $00 $00
 SwabbyTilesEnd:
 
+.define SW ($2000-$2000)/32
+
 ; Metasprite
 Swabby1:
   .db 6
   .db -4, -4, -4, 4, 4, 4
-  .db -8, 0, 0, 1, 8, 2, -8, 3, 0, 4, 8, 5
+  .db -8, SW+0, 0, SW+1, 8, SW+2, -8, SW+3, 0, SW+4, 8, SW+5
 Swabby2:
   .db 6
   .db -4, -4, -4, 4, 4, 4
-  .db -8, 6, 0, 7, 8, 8, -8, 9, 0, 10, 8, 11
+  .db -8, SW+6, 0, SW+7, 8, SW+8, -8, SW+9, 0, SW+10, 8, SW+11
 Swabby3:
   .db 6
   .db -4, -4, -4, 4, 4, 4
-  .db -8, 12, 0, 13, 8, 14, -8, 15, 0, 16, 8, 17
+  .db -8, SW+12, 0, SW+13, 8, SW+14, -8, SW+15, 0, SW+16, 8, SW+17
 
 
 ; Animation table: An array of metasprites with corresponding timer values.
