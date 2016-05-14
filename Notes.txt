@@ -1,0 +1,35 @@
+Crab:
+Old mov. patt.
+  ; Movement patterns.
+  Pattern1: ; The chineese bird-men.
+    .db 0, -1, 70, 1, -1, 90, 0, 1, 175, SELF_DESTRUCT
+
+  Pattern2: ; Classic sine-wave.
+    .db 1, -1, 32, -1, -1, 64, 1, -1, 32, SELF_DESTRUCT
+
+  Pattern3: ; The chineese bird-men, with delay change.
+    .db 0, -1, 70
+    .db SET_DELAY, 2
+    .db 1, -1, 90,
+    .db SET_DELAY, 1
+    .db 0, 1, 175
+    .db SELF_DESTRUCT
+
+  Pattern5: ; Slope.
+    .db SET_DELAY 2
+    .rept 40
+      .db 0, -1, 5,
+      .db 1, -1, 1,
+    .endr
+    .db -1, 1, 20
+    .db SET_DELAY 3
+    .db -2, 1,20
+    .db SET_DELAY 0
+    .db -1,1,140
+    .db SELF_DESTRUCT
+
+  Pattern6: ; Go straight left...
+    .db SET_DELAY 4
+    .db 0,-1,250
+    .db 0,-1,50
+    .db SELF_DESTRUCT

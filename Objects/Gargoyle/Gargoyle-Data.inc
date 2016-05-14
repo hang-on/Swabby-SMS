@@ -16,3 +16,39 @@ GargoyleTiles:
   ; Tile index $007
   .db $DE $9E $9E $FE $DA $5A $5A $FE $F5 $75 $75 $FF $FA $5A $5A $FA $F8 $E8 $E8 $F8 $88 $88 $88 $F8 $48 $48 $48 $78 $F0 $F0 $F0 $F0
 GargoyleTilesEnd:
+
+.define GC ($2400-$2000)/32
+
+; Metasprite
+Gargoyle1:
+  .db 4
+  .db -4, -4, 4, 4
+  .db -4, GC+0, 4, GC+1, -4, GC+2, 4, GC+3
+Gargoyle2:
+  .db 4
+  .db -4, -4, 4, 4
+  .db -4, GC+4, 4, GC+5, -4, GC+6, 4, GC+7
+
+GargoyleFlying:
+  .dw $0700 Gargoyle1 $07ff Gargoyle2
+
+Pattern4: ; Neo sine-wave.
+  .db 2, -1, 16, -2, -1, 32, 2, -1, 16
+  .db 2, -1, 16, -2, -1, 32, 2, -1, 16
+  .db 2, -1, 16, -2, -1, 32, 2, -1, 16
+  .db 2, -1, 16, -2, -1, 32, 2, -1, 16
+  .db 2, -1, 24
+  .db SELF_DESTRUCT
+
+GargoyleInitString:
+  .db 1
+  .db 94 16
+  .dw Gargoyle1
+  .db PATTERN 1 1
+  .dw GargoyleFlying
+  .db 0 0
+  .dw Pattern4
+  .db 0
+  .db 3,3
+  .db LEFT_MASK             ; Hard enable left mask.
+  .db 0

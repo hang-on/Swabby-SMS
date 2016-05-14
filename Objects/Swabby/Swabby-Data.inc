@@ -38,3 +38,36 @@ SwabbyTiles:
   ; Tile index $011
   .db $A0 $A0 $60 $20 $60 $60 $E0 $60 $80 $80 $80 $80 $80 $80 $80 $80 $40 $40 $C0 $40 $C0 $C0 $C0 $C0 $00 $00 $00 $00 $00 $00 $00 $00
 SwabbyTilesEnd:
+
+; Metasprite
+Swabby1:
+  .db 6
+  .db -4, -4, -4, 4, 4, 4
+  .db -8, 0, 0, 1, 8, 2, -8, 3, 0, 4, 8, 5
+Swabby2:
+  .db 6
+  .db -4, -4, -4, 4, 4, 4
+  .db -8, 6, 0, 7, 8, 8, -8, 9, 0, 10, 8, 11
+Swabby3:
+  .db 6
+  .db -4, -4, -4, 4, 4, 4
+  .db -8, 12, 0, 13, 8, 14, -8, 15, 0, 16, 8, 17
+
+
+; Animation table: An array of metasprites with corresponding timer values.
+SwabbyFlying:
+  .dw $2000 Swabby1 $2000 Swabby3 $2000 Swabby1 $2000 Swabby3
+  .dw $2000 Swabby2 $20ff Swabby3 ; MSB $ff (or non-zero value) means loop.
+
+SwabbyInitString:
+  .db 1                     ; Initial status.
+  .db 20 100                ; Start Y and start X.
+  .dw Swabby1               ; MetaSpritePointer.
+  .db JOYSTICK_1 2 2        ; Movement type, vertical and horizontal speed.
+  .dw SwabbyFlying          ; Animation table base address.
+  .db 0 0                   ; Animation table index and timer.
+  .dw $0000                 ; Movement pattern table.
+  .db 0                     ; Pattern timer.
+  .db 0,0                   ; Delay counter and delay value.
+  .db NO_MASKS              ; MetaSprite flags.
+  .db 0                     ; Self destruct.
