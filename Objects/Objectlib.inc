@@ -216,19 +216,27 @@
 ; -----------------------------------------------------------------------------
 .section "HandleMask" free
 ; -----------------------------------------------------------------------------
+  ; The left and right masks' purpose is to let larger objects appear/disappear
+  ; smoothly at the screen's horizontal borders. Screen is divided into three
+  ; zones: 0-63 : 64-190 : 191-255. An object that scrolls into the screen will
+  ; be initialized with either left og right mask enabled. When the object
+  ; is in the central zone, masks are disabled. When object is in the left zone
+  ; then the left mask is enabled, and vice versa.
+
+  ; FIXME!!: Make code correspond to logic explained above!
   ; Check object's mask status, and toggle mask depending on object's
   ; horizontal position and mask status.
   ; Entry: IX = OAT element.
   HandleMasks:
-    bit 1,(ix+OAT_META_SPRITE_FLAGS)           ; Is left mask on?
-    jp z,+
-      ld a,(ix+OAT_X)
-      cp 64
-      ret c
-      sub 191
-      ret nc
-      res 1,(ix+OAT_META_SPRITE_FLAGS)
-      ret
+    bit 1,(ix+OAT_META_SPRITE_FLAGS)      ; Is left mask on?
+    jp z,+                                ; No? - forward to next test.
+      ld a,(ix+OAT_X)                     ; Get object's horizontal position.
+      cp 64                               ; Is it 63 or less?
+      ret c                               ; Yes? - return and keep mask on.
+      sub 191                             ; No? Is it 191 or more?
+      ret nc                              ; Yes? - return and keep mask on.
+      res 1,(ix+OAT_META_SPRITE_FLAGS)    ; No? - object is somewhere in the
+      ret                                 ; middle of the screen, turn mask off.
     +:
     bit 0,(ix+OAT_META_SPRITE_FLAGS)           ; Is right mask on?
     jp z,+
@@ -237,7 +245,7 @@
       ret nc
       sub 64
       ret c
-      res 0,(ix+OAT_META_SPRITE_FLAGS)
+      res 0,(ix+OAT_META_SPRITE_FLAGS)        ; Turn right mask off.
       ret
     +:
     ; else fall through to 'no masks on' below...
