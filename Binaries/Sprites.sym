@@ -51,8 +51,6 @@
 0000:0781 _DrawObject
 0000:0a1d HandleSelfDestruct
 0000:093b HandleMasks
-0000:095e _HandleLeftMask
-0000:096c _HandleRightMask
 0000:0584 MoveObject
 0000:05a2 _MovementTable
 0000:05ac _Static

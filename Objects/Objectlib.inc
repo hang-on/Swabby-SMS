@@ -221,9 +221,25 @@
   ; Entry: IX = OAT element.
   HandleMasks:
     bit 1,(ix+OAT_META_SPRITE_FLAGS)           ; Is left mask on?
-    jp nz,_HandleLeftMask
+    jp z,+
+      ld a,(ix+OAT_X)
+      cp 64
+      ret c
+      sub 191
+      ret nc
+      res 1,(ix+OAT_META_SPRITE_FLAGS)
+      ret
+    +:
     bit 0,(ix+OAT_META_SPRITE_FLAGS)           ; Is right mask on?
-    jp nz,_HandleRightMask
+    jp z,+
+      ld a,(ix+OAT_X)
+      cp 191
+      ret nc
+      sub 64
+      ret c
+      res 0,(ix+OAT_META_SPRITE_FLAGS)
+      ret
+    +:
     ; else fall through to 'no masks on' below...
     ld a,(ix+OAT_X)
     cp 64
@@ -234,24 +250,6 @@
     cp 191
     ret c
     set 1,(ix+OAT_META_SPRITE_FLAGS)
-  ret
-
-  _HandleLeftMask:
-    ld a,(ix+OAT_X)
-    cp 64
-    ret c
-    sub 191
-    ret nc
-    res 1,(ix+OAT_META_SPRITE_FLAGS)
-  ret
-
-  _HandleRightMask:
-    ld a,(ix+OAT_X)
-    cp 191
-    ret nc
-    sub 64
-    ret c
-    res 0,(ix+OAT_META_SPRITE_FLAGS)
   ret
 .ends
 
