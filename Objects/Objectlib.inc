@@ -223,6 +223,13 @@
   ; is in the central zone, masks are disabled. When object is in the left zone
   ; then the left mask is enabled, and vice versa.
 
+  ; Masks explained: Left and right side masks are used by the function
+  ; AddMetaSprite in Spritelib.inc. When the right mask is active on a
+  ; metasprite, every hardware sprite that is about to be drawn somewhere
+  ; within 191-255 is cancelled (actually moved into the blanked column). So
+  ; the right mask is for making metasprites move smoothly out of the left
+  ; side of the screen. Left mask vice versa.
+
   ; FIXME!!: Make code correspond to logic explained above!
   ; Check object's mask status, and toggle mask depending on object's
   ; horizontal position and mask status.

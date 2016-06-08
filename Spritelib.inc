@@ -240,6 +240,10 @@
       jp _Finish
 
     ; Apply offsets with right mask on:
+
+    ; FIXME: Remove duplication!! Pass cp value as parameter, and integrate
+    ; the useright/left mask functions.
+
     _UseRightMask:
       ; Apply offsets to MasterX and write results together with charcodes.
       ld a,(MasterX)
